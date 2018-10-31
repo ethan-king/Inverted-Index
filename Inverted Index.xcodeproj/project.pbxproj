@@ -7,22 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA3A7E812185592600DF4121 /* test2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA3A7E80218558C800DF4121 /* test2.txt */; };
 		AA98E1492183F32D00B95A48 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA98E1482183F32D00B95A48 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		AA98E1432183F32D00B95A48 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				AA3A7E812185592600DF4121 /* test2.txt in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA3A7E80218558C800DF4121 /* test2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
 		AA98E1452183F32D00B95A48 /* Inverted Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Inverted Index"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA98E1482183F32D00B95A48 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +60,7 @@
 		AA98E1472183F32D00B95A48 /* Inverted Index */ = {
 			isa = PBXGroup;
 			children = (
+				AA3A7E80218558C800DF4121 /* test2.txt */,
 				AA98E1482183F32D00B95A48 /* main.cpp */,
 			);
 			path = "Inverted Index";
