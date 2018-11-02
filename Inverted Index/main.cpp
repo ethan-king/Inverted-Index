@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <cctype>
 #include <map>
+#include <utility>
 
 using namespace std;
 
@@ -43,14 +44,14 @@ int main(int argc, const char * argv[]) {
     tuple<string, size_t, size_t> posting;
     vector<tuple<string, size_t, size_t>> tokensList;
     
-    // data structure for dictionary
-    tuple <string, size_t, const vector<tuple<string, size_t, size_t> > > dictionaryTerm; //term, freq, ref to postings list
-    vector<tuple <string, size_t, const vector<tuple<string, size_t, size_t> > > > dictionary;
+    //    // data structure for dictionary
+    //    tuple <string, size_t, const vector<tuple<string, size_t, size_t> > > dictionaryTerm; //term, freq, ref to postings list
+    //    vector<tuple <string, size_t, const vector<tuple<string, size_t, size_t> > > > dictionary;
     
     //data structure v2
     
-    // term - doc# - position
-    map< string, vector< map<size_t, size_t>>> dict2;
+    // term -                doc# - position
+    map< string, vector< map<size_t, vector<size_t>>>> dictionary;
     
     
     //open test files for input
@@ -63,7 +64,7 @@ int main(int argc, const char * argv[]) {
             exit(EXIT_FAILURE);
         }
         
-        cout<< "Reading from "<<fileList[i]<< " into the tokens list." << endl;
+        cout<< "Reading from "<<fileList[i]<< " into the index." << endl;
         size_t wordCt{0}; //counter for word position in each text file
         while(inFile >> x) {
             //normalize terms
@@ -72,52 +73,101 @@ int main(int argc, const char * argv[]) {
             transform(x.begin(), x.end(), x.begin(), ::tolower); // lower case; this is a pain in the ass
             
             // iterate through characters to check alphanumeric, delete non-alphanum
-            for ( size_t i{0}; i< x.size(); i++) { //check chars in string
-                if( ! isalpha(x[i]) ) { //if not alphanumeric, then erase the char
-                    x.erase(i);
+            for ( size_t j{0}; j< x.size(); j++) { //check chars in string
+                if( ! isalpha(x[j]) ) { //if not alphanumeric, then erase the char
+                    x.erase(j);
                 }
             }
             
-            tokensList.push_back(make_tuple(x, i, wordCt++));
+            //data structure reference for coding the mess below
+            //map< string, vector< map<size_t, vector<size_t>>>> dictionary;
+            //map<term, vector<map<doc#, vector<wordCt>>>> dictionary;
+            
+            //if - word exists in dict
+            if( dictionary.count(x) > 0) {
+                //if doc# exists in dict, then add the word position into the vector mapped to the doc# key
+                // x = word
+                // i = doc#
+                // j = vector iterator
+                
+                for ( size_t j{0}; j< dictionary.at(x).size(); j++) { // for a given word, iterate through the first level vector to find doc#
+                    if ( dictionary.at(x)[j].count(i) ) {
+                        //if doc# is found, add position to the word location vector
+                        dictionary.at(x)[j].at(i).push_back(wordCt); //this is so fucked up
+                        break;
+                    }
+                    //if word exists, but doc# doesn't exist in dict, add both the doc# key and word position vector
+                    else if ( j == dictionary.at(x).size() ) {
+                        vector<size_t> temp{wordCt};
+                        map<size_t, vector<size_t>> temp2;
+                        temp2.insert( make_pair(i, temp));
+                        dictionary.at(x).push_back(temp2);
+                    }
+                }
+            }
+            
+            //check if a key exists in the dictionary
+            
+            //else - word doesn't exist in dict, build a new word entry to insert into dictionary
+            else {
+            vector<size_t> temp{wordCt};
+            map<size_t, vector<size_t>> temp2;
+            temp2[i] = temp;
+            vector<map <size_t, vector<size_t>>> temp3 = {temp2};
+            dictionary.insert( make_pair( x, temp3));
+            }
             // push post (tuple<word, doc#, position>) into tokensList
         }
     }
     
     //sort the postings List by term (first element of the tuple)
-    sort( tokensList.begin(), tokensList.end());
+//    sort( tokensList.begin(), tokensList.end());
     
-    //test our postings list by printing them out
-    cout<< "Printing from vector of strings"<<endl;
-    cout<< "Term Doc# Position"<< endl;
-    for ( size_t i{0}; i<tokensList.size(); i++) {
-        cout << get<0>(tokensList[i]) << " " << get<1>(tokensList[i]) << " " <<get<2>(tokensList[i]) << endl;
-    }
-    cout << "Postings count: " << tokensList.size()<< endl;
-    cout<<endl; //end test
     
-    // make the dictionary -> turn tokens list into a dictionary by grouping terms
-    //dictionary < term, doc freq>
-    vector<tuple<string, size_t>> dict;
     
-    for ( size_t i{0}; i< tokensList.size(); i++) {
-        //check ith element in the tokenslist vs the last element in the dictionary
-        //if the word exists, increase the counter
-        if ( dict.size() > 0 && get<0>(tokensList[i]) == get<0>(dict.back()) ) { //dict.size() > 0 is necessary to prevent bad memory access
-            get<1>(dict.back())++;
-        }
-        else { //otherwise add it to the dictionary
-            dict.push_back(make_tuple( get<0>(tokensList[i]), 1));
-        }
-    }
     
-    //test the dictionary
-    for ( size_t i{0}; i < dict.size(); i++) {
-        cout<< get<0>(dict[i]) << " " << get<1>(dict[i]) << endl;
+    //test our dictionary by printing them out
+    cout<< "Printing from dictionary"<<endl;
+    
+    //map iterator
+    for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) {
+        cout<< it->first << endl;
     }
     
     
-    // make postings lists
-    //vector o
+//    cout<< "Term Doc# Position"<< endl;
+//    for ( size_t i{0}; i<tokensList.size(); i++) {
+//        cout << get<0>(tokensList[i]) << " " << get<1>(tokensList[i]) << " " <<get<2>(tokensList[i]) << endl;
+//    }
+//    cout << "Postings count: " << tokensList.size()<< endl;
+//    cout<<endl;
+    //end test
+    
+    
+    
+    
+    
+//    // make the dictionary -> turn tokens list into a dictionary by grouping terms
+//    //dictionary < term, doc freq>
+//    vector<tuple<string, size_t>> dict;
+//
+//    for ( size_t i{0}; i< tokensList.size(); i++) {
+//        //check ith element in the tokenslist vs the last element in the dictionary
+//        //if the word exists, increase the counter
+//        if ( dict.size() > 0 && get<0>(tokensList[i]) == get<0>(dict.back()) ) { //dict.size() > 0 is necessary to prevent bad memory access
+//            get<1>(dict.back())++;
+//        }
+//        else { //otherwise add it to the dictionary
+//            dict.push_back(make_tuple( get<0>(tokensList[i]), 1));
+//        }
+//    }
+//
+//    //test the dictionary
+//    for ( size_t i{0}; i < dict.size(); i++) {
+//        cout<< get<0>(dict[i]) << " " << get<1>(dict[i]) << endl;
+//    }
+//    // make postings lists
+//    //vector o
     
     
     
