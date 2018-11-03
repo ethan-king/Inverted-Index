@@ -24,12 +24,18 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     
     //test file list
-    array<string, 2> fileList = {"test.txt", "test2.txt"};
+    array<string, 3> fileList = {"test.txt", "test2.txt", "test3.txt"};
     
     //create a test file
     ofstream testOut; //create out file object
     testOut.open("test.txt"); //open the file
-    testOut<< "This is a test...\n"; // add dummy data to the file
+    testOut<< "This is a dog test...\n"; // add dummy data to the file
+    testOut.close();
+    testOut.open("test2.txt");
+    testOut<< "I pity the fool! test\n";
+    testOut.close();
+    testOut.open("test3.txt");
+    testOut<< "The quick brown fox jumped over the lazy brown dog.\n";
     testOut.close();
     
     // temp variables for pulling tokens
@@ -128,9 +134,9 @@ int main(int argc, const char * argv[]) {
     cout<< "Printing from dictionary"<<endl;
     
     //map iterator
-    for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) { //iterate through map
+    for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) { //iterate through first map
         cout<< it->first << " ";
-        //iterate through vector
+        //iterate through first vector
         for ( size_t j{0}; j< it->second.size(); j++) {
             for ( map<size_t, vector<size_t>>::iterator it2 = it->second[j].begin(); it2 != it->second[j].end(); it2++){ //iterate through second map
                 cout<< it2->first << " "; //print doc #
@@ -138,6 +144,7 @@ int main(int argc, const char * argv[]) {
                 for ( size_t k{0}; k< it2->second.size(); k++) {
                     cout << it2->second[k] << " ";
                 }
+                cout << endl;
                 
             }
         }
