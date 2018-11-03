@@ -104,70 +104,81 @@ int main(int argc, const char * argv[]) {
                         dictionary.at(x).push_back(temp2);
                     }
                 }
+                
             }
             
             //check if a key exists in the dictionary
             
             //else - word doesn't exist in dict, build a new word entry to insert into dictionary
             else {
-            vector<size_t> temp{wordCt};
-            map<size_t, vector<size_t>> temp2;
-            temp2[i] = temp;
-            vector<map <size_t, vector<size_t>>> temp3 = {temp2};
-            dictionary.insert( make_pair( x, temp3));
+                vector<size_t> temp{wordCt};
+                map<size_t, vector<size_t>> temp2;
+                temp2[i] = temp;
+                vector<map <size_t, vector<size_t>>> temp3 = {temp2};
+                dictionary.insert( make_pair( x, temp3));
             }
             // push post (tuple<word, doc#, position>) into tokensList
+            wordCt++;
         }
+        
+        
     }
-    
-    //sort the postings List by term (first element of the tuple)
-//    sort( tokensList.begin(), tokensList.end());
-    
-    
-    
     
     //test our dictionary by printing them out
     cout<< "Printing from dictionary"<<endl;
     
     //map iterator
-    for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) {
-        cout<< it->first << endl;
+    for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) { //iterate through map
+        cout<< it->first << " ";
+        //iterate through vector
+        for ( size_t j{0}; j< it->second.size(); j++) {
+            for ( map<size_t, vector<size_t>>::iterator it2 = it->second[j].begin(); it2 != it->second[j].end(); it2++){ //iterate through second map
+                cout<< it2->first << " "; //print doc #
+                
+                for ( size_t k{0}; k< it2->second.size(); k++) {
+                    cout << it2->second[k] << " ";
+                }
+                
+            }
+        }
+        
+        cout << endl;
     }
     
     
-//    cout<< "Term Doc# Position"<< endl;
-//    for ( size_t i{0}; i<tokensList.size(); i++) {
-//        cout << get<0>(tokensList[i]) << " " << get<1>(tokensList[i]) << " " <<get<2>(tokensList[i]) << endl;
-//    }
-//    cout << "Postings count: " << tokensList.size()<< endl;
-//    cout<<endl;
+    //    cout<< "Term Doc# Position"<< endl;
+    //    for ( size_t i{0}; i<tokensList.size(); i++) {
+    //        cout << get<0>(tokensList[i]) << " " << get<1>(tokensList[i]) << " " <<get<2>(tokensList[i]) << endl;
+    //    }
+    //    cout << "Postings count: " << tokensList.size()<< endl;
+    //    cout<<endl;
     //end test
     
     
     
     
     
-//    // make the dictionary -> turn tokens list into a dictionary by grouping terms
-//    //dictionary < term, doc freq>
-//    vector<tuple<string, size_t>> dict;
-//
-//    for ( size_t i{0}; i< tokensList.size(); i++) {
-//        //check ith element in the tokenslist vs the last element in the dictionary
-//        //if the word exists, increase the counter
-//        if ( dict.size() > 0 && get<0>(tokensList[i]) == get<0>(dict.back()) ) { //dict.size() > 0 is necessary to prevent bad memory access
-//            get<1>(dict.back())++;
-//        }
-//        else { //otherwise add it to the dictionary
-//            dict.push_back(make_tuple( get<0>(tokensList[i]), 1));
-//        }
-//    }
-//
-//    //test the dictionary
-//    for ( size_t i{0}; i < dict.size(); i++) {
-//        cout<< get<0>(dict[i]) << " " << get<1>(dict[i]) << endl;
-//    }
-//    // make postings lists
-//    //vector o
+    //    // make the dictionary -> turn tokens list into a dictionary by grouping terms
+    //    //dictionary < term, doc freq>
+    //    vector<tuple<string, size_t>> dict;
+    //
+    //    for ( size_t i{0}; i< tokensList.size(); i++) {
+    //        //check ith element in the tokenslist vs the last element in the dictionary
+    //        //if the word exists, increase the counter
+    //        if ( dict.size() > 0 && get<0>(tokensList[i]) == get<0>(dict.back()) ) { //dict.size() > 0 is necessary to prevent bad memory access
+    //            get<1>(dict.back())++;
+    //        }
+    //        else { //otherwise add it to the dictionary
+    //            dict.push_back(make_tuple( get<0>(tokensList[i]), 1));
+    //        }
+    //    }
+    //
+    //    //test the dictionary
+    //    for ( size_t i{0}; i < dict.size(); i++) {
+    //        cout<< get<0>(dict[i]) << " " << get<1>(dict[i]) << endl;
+    //    }
+    //    // make postings lists
+    //    //vector o
     
     
     
