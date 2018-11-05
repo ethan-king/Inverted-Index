@@ -60,11 +60,11 @@ int main(int argc, const char * argv[]) {
     map< string, vector< map<size_t, vector<size_t>>>> dictionary;
     
     
-    //open test files for input
+    //open files for input
     for ( size_t i{0}; i< fileList.size(); i++) {
-        // open ith file in fileList.
+        
+        // open ith file in fileList and check
         ifstream inFile{fileList[i], ios::in};
-        //test if file was opened
         if (!inFile) {
             cerr << "File could not be opened" << endl;
             exit(EXIT_FAILURE);
@@ -72,6 +72,7 @@ int main(int argc, const char * argv[]) {
         
         cout<< "Reading from "<<fileList[i]<< " into the index." << endl;
         size_t wordCt{0}; //counter for word position in each text file
+        
         while(inFile >> x) {
             //normalize terms
             
@@ -99,22 +100,22 @@ int main(int argc, const char * argv[]) {
                 for ( size_t j{0}; j< dictionary.at(x).size(); j++) { // for a given word, iterate through the first level vector to find doc#
                     if ( dictionary.at(x)[j].count(i) ) {
                         //if doc# is found, add position to the word location vector
-                        dictionary.at(x)[j].at(i).push_back(wordCt); //this is so fucked up
+                        dictionary.at(x)[j].at(i).push_back(wordCt++);
+
                         break;
                     }
                     //if word exists, but doc# doesn't exist in dict, add both the doc# key and word position vector
-                    else if ( j == dictionary.at(x).size() ) {
+                    else if ( j == dictionary.at(x).size()-1 ){
                         vector<size_t> temp{wordCt};
                         map<size_t, vector<size_t>> temp2;
                         temp2.insert( make_pair(i, temp));
                         dictionary.at(x).push_back(temp2);
+                        wordCt++;
+                        break;
                     }
                 }
                 
             }
-            
-            //check if a key exists in the dictionary
-            
             //else - word doesn't exist in dict, build a new word entry to insert into dictionary
             else {
                 vector<size_t> temp{wordCt};
@@ -122,23 +123,32 @@ int main(int argc, const char * argv[]) {
                 temp2[i] = temp;
                 vector<map <size_t, vector<size_t>>> temp3 = {temp2};
                 dictionary.insert( make_pair( x, temp3));
+                wordCt++;
             }
             // push post (tuple<word, doc#, position>) into tokensList
-            wordCt++;
         }
         
         
     }
     
+    
+    //data structure reference for coding the mess below
+    //map< string, vector< map<size_t, vector<size_t>>>> dictionary;
+    //map<term, vector<map<doc#, vector<wordCt>>>> dictionary;
+    
     //test our dictionary by printing them out
     cout<< "Printing from dictionary"<<endl;
     
     //map iterator
-    for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) { //iterate through first map
-        cout<< it->first << " ";
-        //iterate through first vector
+    for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) {
+        cout<< it->first <<" ";
+        
+        //iterate through vector of maps ( doc# & pos)
         for ( size_t j{0}; j< it->second.size(); j++) {
-            for ( map<size_t, vector<size_t>>::iterator it2 = it->second[j].begin(); it2 != it->second[j].end(); it2++){ //iterate through second map
+            
+            //iterate through second map (doc# & pos)
+            for ( map<size_t, vector<size_t>>::iterator it2 = it->second[j].begin(); it2 != it->second[j].end(); it2++){
+                
                 cout<< it2->first << " "; //print doc #
                 
                 for ( size_t k{0}; k< it2->second.size(); k++) {
