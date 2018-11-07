@@ -1,0 +1,4 @@
+Rational pricing is the assumption in financial economics that asset prices (and hence asset pricing models) will reflect the arbitrage-free price of the asset as any deviation from this price will be "arbitraged away". This assumption is useful in pricing fixed income securities, particularly bonds, and is fundamental to the pricing of derivative instruments.
+Arbitrage is the practice of taking advantage of a state of imbalance between two (or possibly more) markets. Where this mismatch can be exploited (i.e. after transaction costs, storage costs, transport costs, dividends etc.) the arbitrageur can "lock in" a risk-free profit by purchasing and selling simultaneously in both markets.
+
+In general, arbitrage ensures that "the law of one price" will hold; arbitrage also equalises the prices of assets with identical cash flows, and sets the price of assets with known future cash flows.

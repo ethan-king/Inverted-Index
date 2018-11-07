@@ -18,37 +18,38 @@
 #include <cctype>
 #include <map>
 #include <utility>
+#include <iomanip>
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
     
     //test file list
-    array<string, 3> fileList = {"test.txt", "test2.txt", "test3.txt"};
+    array<string, 12> fileList = {"t1.txt", "t2.txt", "t3.txt", "t4.txt", "t5.txt", "t6.txt", "t7.txt", "t8.txt", "t9.txt", "t10.txt", "t11.txt", "t12.txt"};
     
-    //create a test file
-    ofstream testOut; //create out file object
-    testOut.open("test.txt"); //open the file
-    testOut<< "This is a dog test...\n"; // add dummy data to the file
-    testOut.close();
-    testOut.open("test2.txt");
-    testOut<< "I pity the fool! test\n";
-    testOut.close();
-    testOut.open("test3.txt");
-    testOut<< "The quick brown fox jumped over the lazy brown dog.\n";
-    testOut.close();
+//    //create a test file
+//    ofstream testOut; //create out file object
+//    testOut.open("test.txt"); //open the file
+//    testOut<< "This is a dog test...\n"; // add dummy data to the file
+//    testOut.close();
+//    testOut.open("test2.txt");
+//    testOut<< "I pity the fool! test\n";
+//    testOut.close();
+//    testOut.open("test3.txt");
+//    testOut<< "The quick brown fox jumped over the lazy brown dog.\n";
+//    testOut.close();
     
     // temp variables for pulling tokens
     string x;
-    vector<string> tokens;
+//    vector<string> tokens;
     
     // variables for each word in a file
     //string term;
     //size_t docID, wordPos;
     
-    // data structure for postings list
-    tuple<string, size_t, size_t> posting;
-    vector<tuple<string, size_t, size_t>> tokensList;
+//    // data structure for postings list
+//    tuple<string, size_t, size_t> posting;
+//    vector<tuple<string, size_t, size_t>> tokensList;
     
     //    // data structure for dictionary
     //    tuple <string, size_t, const vector<tuple<string, size_t, size_t> > > dictionaryTerm; //term, freq, ref to postings list
@@ -66,7 +67,7 @@ int main(int argc, const char * argv[]) {
         // open ith file in fileList and check
         ifstream inFile{fileList[i], ios::in};
         if (!inFile) {
-            cerr << "File could not be opened" << endl;
+            cerr << "File "<< fileList[i]<< " could not be opened" << endl;
             exit(EXIT_FAILURE);
         }
         
@@ -141,7 +142,8 @@ int main(int argc, const char * argv[]) {
     
     //map iterator
     for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) {
-        cout<< it->first <<" ";
+        
+        cout << it->first <<" ";
         
         //iterate through vector of maps ( doc# & pos)
         for ( size_t j{0}; j< it->second.size(); j++) {

@@ -1,0 +1,6 @@
+The forward price (or sometimes forward rate) is the agreed upon price of an asset in a forward contract. Using the rational pricing assumption, for a forward contract on an underlying asset that is tradeable, we can express the forward price in terms of the spot price and any dividends etc. For forwards on non-tradeables, pricing the forward may be a complex task.
+There is a difference between forward and futures prices when interest rates are stochastic. This difference disappears when interest rates are deterministic.
+
+In the language of stochastic processes, the forward price is a martingale under the forward measure, whereas the futures price is a martingale under the risk-neutral measure. The forward measure and the risk neutral measure are the same when interest rates are deterministic.
+
+See Musiela and Rutkowski's book on Martingale Methods in Financial Markets for a continuous-time proof of this result. See van der Hoek and Elliott's book on Binomial Models in Finance for the discrete-time version of this result.
