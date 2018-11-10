@@ -7,8 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA3A7E812185592600DF4121 /* test2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA3A7E80218558C800DF4121 /* test2.txt */; };
 		AA98E1492183F32D00B95A48 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA98E1482183F32D00B95A48 /* main.cpp */; };
+		AAFF698B21936C7300FB697D /* t1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698021936BCD00FB697D /* t1.txt */; };
+		AAFF698C21936C7300FB697D /* t2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698821936BCD00FB697D /* t2.txt */; };
+		AAFF698D21936C7300FB697D /* t3.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698121936BCD00FB697D /* t3.txt */; };
+		AAFF698E21936C7300FB697D /* t4.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF697F21936BCD00FB697D /* t4.txt */; };
+		AAFF698F21936C7300FB697D /* t5.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698221936BCD00FB697D /* t5.txt */; };
+		AAFF699021936C7300FB697D /* t6.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698521936BCD00FB697D /* t6.txt */; };
+		AAFF699121936C7300FB697D /* t7.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698921936BCD00FB697D /* t7.txt */; };
+		AAFF699221936C7300FB697D /* t8.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698421936BCD00FB697D /* t8.txt */; };
+		AAFF699321936C7300FB697D /* t9.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698621936BCD00FB697D /* t9.txt */; };
+		AAFF699421936C7300FB697D /* t10.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698321936BCD00FB697D /* t10.txt */; };
+		AAFF699521936C7300FB697D /* t11.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698721936BCD00FB697D /* t11.txt */; };
+		AAFF699621936C7300FB697D /* t12.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAFF698A21936BCD00FB697D /* t12.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,16 +29,38 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				AA3A7E812185592600DF4121 /* test2.txt in CopyFiles */,
+				AAFF698B21936C7300FB697D /* t1.txt in CopyFiles */,
+				AAFF698C21936C7300FB697D /* t2.txt in CopyFiles */,
+				AAFF698D21936C7300FB697D /* t3.txt in CopyFiles */,
+				AAFF698E21936C7300FB697D /* t4.txt in CopyFiles */,
+				AAFF698F21936C7300FB697D /* t5.txt in CopyFiles */,
+				AAFF699021936C7300FB697D /* t6.txt in CopyFiles */,
+				AAFF699121936C7300FB697D /* t7.txt in CopyFiles */,
+				AAFF699221936C7300FB697D /* t8.txt in CopyFiles */,
+				AAFF699321936C7300FB697D /* t9.txt in CopyFiles */,
+				AAFF699421936C7300FB697D /* t10.txt in CopyFiles */,
+				AAFF699521936C7300FB697D /* t11.txt in CopyFiles */,
+				AAFF699621936C7300FB697D /* t12.txt in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AA3A7E80218558C800DF4121 /* test2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
 		AA98E1452183F32D00B95A48 /* Inverted Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Inverted Index"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA98E1482183F32D00B95A48 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		AAFF697F21936BCD00FB697D /* t4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t4.txt; sourceTree = "<group>"; };
+		AAFF698021936BCD00FB697D /* t1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t1.txt; sourceTree = "<group>"; };
+		AAFF698121936BCD00FB697D /* t3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t3.txt; sourceTree = "<group>"; };
+		AAFF698221936BCD00FB697D /* t5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t5.txt; sourceTree = "<group>"; };
+		AAFF698321936BCD00FB697D /* t10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t10.txt; sourceTree = "<group>"; };
+		AAFF698421936BCD00FB697D /* t8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t8.txt; sourceTree = "<group>"; };
+		AAFF698521936BCD00FB697D /* t6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t6.txt; sourceTree = "<group>"; };
+		AAFF698621936BCD00FB697D /* t9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t9.txt; sourceTree = "<group>"; };
+		AAFF698721936BCD00FB697D /* t11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t11.txt; sourceTree = "<group>"; };
+		AAFF698821936BCD00FB697D /* t2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t2.txt; sourceTree = "<group>"; };
+		AAFF698921936BCD00FB697D /* t7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t7.txt; sourceTree = "<group>"; };
+		AAFF698A21936BCD00FB697D /* t12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t12.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +93,19 @@
 		AA98E1472183F32D00B95A48 /* Inverted Index */ = {
 			isa = PBXGroup;
 			children = (
-				AA3A7E80218558C800DF4121 /* test2.txt */,
 				AA98E1482183F32D00B95A48 /* main.cpp */,
+				AAFF698021936BCD00FB697D /* t1.txt */,
+				AAFF698821936BCD00FB697D /* t2.txt */,
+				AAFF698121936BCD00FB697D /* t3.txt */,
+				AAFF697F21936BCD00FB697D /* t4.txt */,
+				AAFF698221936BCD00FB697D /* t5.txt */,
+				AAFF698521936BCD00FB697D /* t6.txt */,
+				AAFF698921936BCD00FB697D /* t7.txt */,
+				AAFF698421936BCD00FB697D /* t8.txt */,
+				AAFF698621936BCD00FB697D /* t9.txt */,
+				AAFF698321936BCD00FB697D /* t10.txt */,
+				AAFF698721936BCD00FB697D /* t11.txt */,
+				AAFF698A21936BCD00FB697D /* t12.txt */,
 			);
 			path = "Inverted Index";
 			sourceTree = "<group>";

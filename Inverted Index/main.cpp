@@ -8,12 +8,10 @@
 
 #include <iostream>
 #include <fstream>
-//#include <iomanip>
 //#include <string>
 //#include <cstdlib>
 #include <vector>
 #include <array>
-#include <tuple>
 #include <algorithm>
 #include <cctype>
 #include <map>
@@ -22,49 +20,29 @@
 
 using namespace std;
 
-int main(int argc, const char * argv[]) {
-    
-    //test file list
-    array<string, 12> fileList = {"t1.txt", "t2.txt", "t3.txt", "t4.txt", "t5.txt", "t6.txt", "t7.txt", "t8.txt", "t9.txt", "t10.txt", "t11.txt", "t12.txt"};
-    
-//    //create a test file
-//    ofstream testOut; //create out file object
-//    testOut.open("test.txt"); //open the file
-//    testOut<< "This is a dog test...\n"; // add dummy data to the file
-//    testOut.close();
-//    testOut.open("test2.txt");
-//    testOut<< "I pity the fool! test\n";
-//    testOut.close();
-//    testOut.open("test3.txt");
-//    testOut<< "The quick brown fox jumped over the lazy brown dog.\n";
-//    testOut.close();
-    
+//function prototypes
+unsigned getMenuInput();
+void showIndex();
+void cleanString( string&);
+
+//global variables
+unsigned menuSelection{0};
+//file list
+vector<string> fileList = {"t1.txt", "t2.txt", "t3.txt", "t4.txt", "t5.txt", "t6.txt", "t7.txt", "t8.txt", "t9.txt", "t10.txt", "t11.txt", "t12.txt"};
+//data structure v2
+// term -                doc# - position
+map< string, vector< map<size_t, vector<size_t>>>> dictionary;
+
+
+int main() {
     // temp variables for pulling tokens
     string x;
-//    vector<string> tokens;
     
-    // variables for each word in a file
-    //string term;
-    //size_t docID, wordPos;
-    
-//    // data structure for postings list
-//    tuple<string, size_t, size_t> posting;
-//    vector<tuple<string, size_t, size_t>> tokensList;
-    
-    //    // data structure for dictionary
-    //    tuple <string, size_t, const vector<tuple<string, size_t, size_t> > > dictionaryTerm; //term, freq, ref to postings list
-    //    vector<tuple <string, size_t, const vector<tuple<string, size_t, size_t> > > > dictionary;
-    
-    //data structure v2
-    
-    // term -                doc# - position
-    map< string, vector< map<size_t, vector<size_t>>>> dictionary;
-    
-    
+    //Create the index
     //open files for input
     for ( size_t i{0}; i< fileList.size(); i++) {
         
-        // open ith file in fileList and check
+        // open ith file in fileList and check if the file was opened
         ifstream inFile{fileList[i], ios::in};
         if (!inFile) {
             cerr << "File "<< fileList[i]<< " could not be opened" << endl;
@@ -73,19 +51,8 @@ int main(int argc, const char * argv[]) {
         
         cout<< "Reading from "<<fileList[i]<< " into the index." << endl;
         size_t wordCt{0}; //counter for word position in each text file
-        
         while(inFile >> x) {
-            //normalize terms
-            
-            //tolower
-            transform(x.begin(), x.end(), x.begin(), ::tolower); // lower case; this is a pain in the ass
-            
-            // iterate through characters to check alphanumeric, delete non-alphanum
-            for ( size_t j{0}; j< x.size(); j++) { //check chars in string
-                if( ! isalpha(x[j]) ) { //if not alphanumeric, then erase the char
-                    x.erase(j);
-                }
-            }
+            cleanString(x); //normalize term
             
             //data structure reference for coding the mess below
             //map< string, vector< map<size_t, vector<size_t>>>> dictionary;
@@ -102,7 +69,7 @@ int main(int argc, const char * argv[]) {
                     if ( dictionary.at(x)[j].count(i) ) {
                         //if doc# is found, add position to the word location vector
                         dictionary.at(x)[j].at(i).push_back(wordCt++);
-
+                        
                         break;
                     }
                     //if word exists, but doc# doesn't exist in dict, add both the doc# key and word position vector
@@ -126,24 +93,98 @@ int main(int argc, const char * argv[]) {
                 dictionary.insert( make_pair( x, temp3));
                 wordCt++;
             }
-            // push post (tuple<word, doc#, position>) into tokensList
+        }
+    }
+    
+    //display entire index
+    showIndex();
+    
+    //data structure reference for coding the mess below
+    //map< string, vector< map<size_t, vector<size_t>>>> dictionary;
+    //map<term, vector<map<doc#, vector<wordCt>>>> dictionary;
+
+    //Display Menu
+    while( menuSelection <2) {
+        switch(getMenuInput()) {
+            case 1: {
+                string query;
+                cout << "Enter search term"<<endl;
+                cout << ">> ";
+                cin >> query;
+                cleanString(query);
+                cout << endl;
+                
+                // check search term against dictionary. If exists, return results. Else, return error msg
+                for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) {
+                    if ( it->first == query) {
+                        cout << it->first <<endl;
+                        //iterate through vector of maps ( doc# & pos)
+                        for ( size_t j{0}; j< it->second.size(); j++) {
+                            
+                            //iterate through second map (doc# & pos)
+                            for ( map<size_t, vector<size_t>>::iterator it2 = it->second[j].begin(); it2 != it->second[j].end(); it2++){
+                                
+                                cout<< fileList[ it2->first] << " "; //print doc #
+                                
+                                for ( size_t k{0}; k< it2->second.size(); k++) {
+                                    cout << it2->second[k] << " ";
+                                }
+                                cout << endl;
+                                
+                            }
+                        }
+                        break;
+                    }
+                    else if ( next(it) == dictionary.end()) {
+                        cout << "There is no \""<< query<< "\" in our system." <<endl;
+                    }
+                }
+                break;
+            }
+            case 2: {
+                cout << "System exit" << endl;
+                break;
+            }
         }
         
         
     }
     
     
-    //data structure reference for coding the mess below
-    //map< string, vector< map<size_t, vector<size_t>>>> dictionary;
-    //map<term, vector<map<doc#, vector<wordCt>>>> dictionary;
     
-    //test our dictionary by printing them out
-    cout<< "Printing from dictionary"<<endl;
     
+    
+    
+    return 0;
+}
+
+unsigned getMenuInput() {
+    unsigned selection{0}, menuOptions{2};
+    cout<< endl;
+    cout<< "Inverted index query" << endl;
+    cout<< "  (1) Search" << endl;
+    cout<< "  (2) Quit" << endl;
+    cout<< ">> ";
+    
+    cin >> selection;
+    cout<< endl;
+    
+    while (!cin || selection > menuOptions) {
+        cout << endl << "Invalid menu selection.\n>> ";
+        cin.clear();
+        cin.ignore(256,'\n');
+        cin >> selection;
+    }
+    menuSelection= selection;
+    return selection;
+}
+
+void showIndex() { //display entire index
+    cout<< "Displaying index contents."<<endl;
     //map iterator
     for ( map< string, vector< map<size_t, vector<size_t>>>>::iterator it = dictionary.begin(); it != dictionary.end(); it++ ) {
         
-        cout << it->first <<" ";
+        cout << it->first <<endl;
         
         //iterate through vector of maps ( doc# & pos)
         for ( size_t j{0}; j< it->second.size(); j++) {
@@ -151,7 +192,7 @@ int main(int argc, const char * argv[]) {
             //iterate through second map (doc# & pos)
             for ( map<size_t, vector<size_t>>::iterator it2 = it->second[j].begin(); it2 != it->second[j].end(); it2++){
                 
-                cout<< it2->first << " "; //print doc #
+                cout<< fileList[ it2->first] << " "; //print doc #
                 
                 for ( size_t k{0}; k< it2->second.size(); k++) {
                     cout << it2->second[k] << " ";
@@ -163,44 +204,15 @@ int main(int argc, const char * argv[]) {
         
         cout << endl;
     }
-    
-    
-    //    cout<< "Term Doc# Position"<< endl;
-    //    for ( size_t i{0}; i<tokensList.size(); i++) {
-    //        cout << get<0>(tokensList[i]) << " " << get<1>(tokensList[i]) << " " <<get<2>(tokensList[i]) << endl;
-    //    }
-    //    cout << "Postings count: " << tokensList.size()<< endl;
-    //    cout<<endl;
-    //end test
-    
-    
-    
-    
-    
-    //    // make the dictionary -> turn tokens list into a dictionary by grouping terms
-    //    //dictionary < term, doc freq>
-    //    vector<tuple<string, size_t>> dict;
-    //
-    //    for ( size_t i{0}; i< tokensList.size(); i++) {
-    //        //check ith element in the tokenslist vs the last element in the dictionary
-    //        //if the word exists, increase the counter
-    //        if ( dict.size() > 0 && get<0>(tokensList[i]) == get<0>(dict.back()) ) { //dict.size() > 0 is necessary to prevent bad memory access
-    //            get<1>(dict.back())++;
-    //        }
-    //        else { //otherwise add it to the dictionary
-    //            dict.push_back(make_tuple( get<0>(tokensList[i]), 1));
-    //        }
-    //    }
-    //
-    //    //test the dictionary
-    //    for ( size_t i{0}; i < dict.size(); i++) {
-    //        cout<< get<0>(dict[i]) << " " << get<1>(dict[i]) << endl;
-    //    }
-    //    // make postings lists
-    //    //vector o
-    
-    
-    
-    return 0;
 }
 
+void cleanString(string& term) { //tolower and remove non-alphanum
+    //tolower
+    transform(term.begin(), term.end(), term.begin(), ::tolower); // lower case; this is a pain in the ass
+    //check alphanumeric, delete non-alphanum
+    for ( size_t j{0}; j< term.size(); j++) { //check chars in string
+        if( ! isalpha(term[j]) ) { //if not alphanumeric, then erase the char
+            term.erase(j);
+        }
+    }
+}
