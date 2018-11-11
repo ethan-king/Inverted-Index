@@ -61,6 +61,7 @@
 		AAFF698821936BCD00FB697D /* t2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t2.txt; sourceTree = "<group>"; };
 		AAFF698921936BCD00FB697D /* t7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t7.txt; sourceTree = "<group>"; };
 		AAFF698A21936BCD00FB697D /* t12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = t12.txt; sourceTree = "<group>"; };
+		AAFF69972197C18000FB697D /* fileList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fileList.txt; path = "../../../../../../Library/Developer/Xcode/DerivedData/Inverted_Index-gufkqpyrxpvfrybzqoocuxexsyzd/Build/Products/Debug/fileList.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				AA98E1482183F32D00B95A48 /* main.cpp */,
+				AAFF69972197C18000FB697D /* fileList.txt */,
 				AAFF698021936BCD00FB697D /* t1.txt */,
 				AAFF698821936BCD00FB697D /* t2.txt */,
 				AAFF698121936BCD00FB697D /* t3.txt */,
